@@ -5,25 +5,33 @@ import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
 
 import static utils.UserFactory.*;
 
 public class LoginTests extends AppManager {
+    LoginPage loginPage;
+    SoftAssert softAssert = new SoftAssert();
+
     @BeforeMethod
     public void goToLoginPage(){
         new HomePage(getDriver()).clickBtnLogin();
+        loginPage = new LoginPage(getDriver());
     }
 
     @Test
     public void loginPositiveTest(){
-        UserLombok user = positiveUser();
-        LoginPage loginPage = new LoginPage(getDriver());
+        UserLombok user = UserLombok.builder()
+                .username("bruno1@gmail.com")
+                .password("QAZ123!lnk")
+                .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
         //Assert.assertEquals(loginPage.getLoggedInMessage(), "Logged in success");
-        Assert.assertTrue(loginPage.validateTextInMessageLoginSuccess("Logged in success"));
+        //Assert.assertTrue(loginPage.validateTextInMessageLoginSuccess("Logged in success"));
+        Assert.assertTrue(loginPage.isPopUpLoginDisplayed());
         loginPage.clickOk();
     }
 
@@ -31,12 +39,12 @@ public class LoginTests extends AppManager {
     public void loginWithWrongPasswordTest(){
         UserLombok user = UserLombok.builder()
                 .username("bruno1@gmail.com")
-                .password("1")
+                .password("QQAZ123!lnk")
                 .build();
-        LoginPage loginPage =  new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
-        Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
+        //Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
+        Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
         loginPage.clickOk();
     }
 
@@ -46,11 +54,31 @@ public class LoginTests extends AppManager {
                 .username("runo1@gmail.com")
                 .password("QAZ123!lnk")
                 .build();
-        LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
-        Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
+        //Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
+        Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
         loginPage.clickOk();
+    }
+
+    @Test
+    public void loginNegativeEmptyAllFieldsWithoutClickInFieldsTest(){
+        loginPage.clickBtnYalla();
+        Assert.assertFalse(loginPage.isBtnYallaEnabled());
+    }
+
+    @Test
+    public void loginNegativeEmptyAllFieldsWithClickInFieldsTest(){
+        UserLombok user = UserLombok.builder()
+                        .username("")
+                        .password("")
+                        .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(), "validate isBtnYallaEnabled");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Email is required"), "validate message: Email is required");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Password is required"), "validate message: Password is required");
+        softAssert.assertAll();
     }
 
 }

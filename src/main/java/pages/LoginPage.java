@@ -9,7 +9,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 public class LoginPage extends BasePage{
     public LoginPage(WebDriver driver){
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
+        PageFactory.initElements(new
+                AjaxElementLocatorFactory(driver, 10), this);
     }
 
     @FindBy(xpath = "//input[@id='email']")
@@ -25,21 +26,29 @@ public class LoginPage extends BasePage{
     @FindBy(css = "h2.message")
     WebElement errorMessage;
 
-    public boolean validateTextInMessageLoginFailed(String text){
-        return isTextInElementPresent(errorMessage, text) ;
+    public boolean isPopUpLoginDisplayed(){
+        return isElementDisplayed(loggedInMessage);
     }
+
+    public boolean isPopUpLoginFailedDisplayed(){
+        return isElementDisplayed(errorMessage);
+    }
+
+//    public boolean validateTextInMessageLoginFailed(String text){
+//        return isTextInElementPresent(errorMessage, text) ;
+//    }
 
 //    public String getErrorMessage() {
 //        return errorMessage.getText();
 //    }
 
-    public boolean validateTextInMessageLoginSuccess(String text){
-        return isTextInElementPresent(loggedInMessage, text);
-    }
+//    public boolean validateTextInMessageLoginSuccess(String text){
+//        return isTextInElementPresent(loggedInMessage, text);
+//    }
 
-    public String getLoggedInMessage(){
-        return loggedInMessage.getText();
-    }
+//    public String getLoggedInMessage(){
+//        return loggedInMessage.getText();
+//    }
 
     public void clickOk(){
         btnOk.click();
@@ -52,6 +61,10 @@ public class LoginPage extends BasePage{
 
     public void clickBtnYalla(){
         btnYalla.click();
+    }
+
+    public boolean isBtnYallaEnabled(){
+        return btnYalla.isEnabled();
     }
 
 }

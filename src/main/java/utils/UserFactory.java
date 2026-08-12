@@ -1,13 +1,16 @@
 package utils;
 
 import dto.UserLombok;
+import net.datafaker.Faker;
 
 public class UserFactory {
-   public static UserLombok positiveUser(){
+    static Faker faker = new Faker();
+
+    public static UserLombok positiveUser(){
         UserLombok user = UserLombok.builder()
-                .username("bruno1@gmail.com")
-                .password("QAZ123!lnk")
+                .username(faker.internet().emailAddress())
+                .password("Qwerty123!")
                 .build();
         return user;
-   }
+    }
 }
