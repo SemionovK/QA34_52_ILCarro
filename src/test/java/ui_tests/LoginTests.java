@@ -9,7 +9,7 @@ import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
 
-import static utils.UserFactory.*;
+import static utils.PropertiesReader.*;
 
 public class LoginTests extends AppManager {
     LoginPage loginPage;
@@ -24,8 +24,8 @@ public class LoginTests extends AppManager {
     @Test
     public void loginPositiveTest(){
         UserLombok user = UserLombok.builder()
-                .username("bruno1@gmail.com")
-                .password("QAZ123!lnk")
+                .username(getProperty("base.properties", "email"))
+                .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
@@ -38,7 +38,7 @@ public class LoginTests extends AppManager {
     @Test
     public void loginWithWrongPasswordTest(){
         UserLombok user = UserLombok.builder()
-                .username("bruno1@gmail.com")
+                .username(getProperty("base.properties", "email"))
                 .password("QQAZ123!lnk")
                 .build();
         loginPage.typeLoginForm(user);
@@ -52,7 +52,7 @@ public class LoginTests extends AppManager {
     public void loginWithWrongEmailTest(){
         UserLombok user = UserLombok.builder()
                 .username("runo1@gmail.com")
-                .password("QAZ123!lnk")
+                .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
