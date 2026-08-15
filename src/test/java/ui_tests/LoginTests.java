@@ -81,4 +81,52 @@ public class LoginTests extends AppManager {
         softAssert.assertAll();
     }
 
+    @Test
+    public void loginNegativeWithEmptyEmailFieldWithClickingInEmailFieldTest(){
+        UserLombok user = UserLombok.builder()
+                .username("")
+                .password(getProperty("base.properties", "password"))
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(), "validate isBtnYallaEnabled");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Email is required"), "validate message: Email is required");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void loginNegativeWithEmptyEmailFieldWithoutClickingInEmailFieldTest(){
+        UserLombok user = UserLombok.builder()
+                .password(getProperty("base.properties", "password"))
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+        Assert.assertFalse(loginPage.isBtnYallaEnabled());
+    }
+
+    @Test
+    public void loginNegativeWithEmptyPasswordWithClickingInEmptyFieldTest(){
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties", "email"))
+                .password("")
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(), "validate isBtnYallaEnabled");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Password is required"), "validate message: Password is required");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void loginNegativeWithEmptyPasswordWithoutClickingInEmptyFieldTest(){
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties", "email"))
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(), "validate isBtnYallaEnabled");
+        softAssert.assertFalse(loginPage.isTextInErrorPresent("Password is required"), "validate message: Password is required");
+        softAssert.assertAll();
+    }
+
 }

@@ -55,8 +55,13 @@ public class LoginPage extends BasePage{
     }
 
     public void typeLoginForm(UserLombok user){
-        inputEmail.sendKeys(user.getUsername());
-        inputPassword.sendKeys(user.getPassword());
+        if (user.getUsername() != null){
+            inputEmail.sendKeys(user.getUsername());
+        }
+        if (user.getPassword() != null){
+            inputPassword.sendKeys(user.getPassword());
+        }
+
     }
 
     public void clickBtnYalla(){
