@@ -18,6 +18,8 @@ public class HomePage extends BasePage{
 
     @FindBy(css = "a[href='/login?url=%2Fsearch']")
     WebElement btnLogin;
+    @FindBy(css = "a[href='/registration?url=%2Fsearch']")
+    WebElement btnSignUp;
 
 
 
@@ -25,5 +27,5 @@ public class HomePage extends BasePage{
         btnLogin.click();
     }
 
-
+    public void clickBtnSignUp(){btnSignUp.click();}
 }
