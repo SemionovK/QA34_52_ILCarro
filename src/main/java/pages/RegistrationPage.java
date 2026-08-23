@@ -22,8 +22,10 @@ public class RegistrationPage extends BasePage {
     WebElement inputEmail;
     @FindBy(id = "password")
     WebElement inputPassword;
-    @FindBy(xpath = "//label[contains(., 'I agree to the')]")
-    WebElement inputCheckbox;
+//    @FindBy(xpath = "//label[contains(., 'I agree to the')]")
+//    WebElement checkboxMy;
+    @FindBy(xpath = "//label[@for='terms-of-use']")
+    WebElement checkbox;
     @FindBy(css = "button[type='submit']")
     WebElement btnYalla;
     @FindBy(xpath = "//*[text()='You are logged in success']")
@@ -37,12 +39,22 @@ public class RegistrationPage extends BasePage {
 
     }
 
-    public void clickInputCheckbox(){
+    public void clickCheckboxByMyScreenResolution(){
         new Actions(driver)
-                .moveToElement(inputCheckbox, -80, 0)
+                .moveToElement(checkbox, -80, 0)
                 .click()
                 .perform();
     }
+
+//    public void clickCheckbox(){
+//        int x = checkbox.getSize().getWidth();
+//        int y = checkbox.getSize().getHeight();
+//        //System.out.println(x + "X" + y);  246X38
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(checkbox, -x/2 + 25, -y/2 +25)
+//                .click()
+//                .perform();
+//    }
 
     public void clickBtnYalla(){
         btnYalla.click();

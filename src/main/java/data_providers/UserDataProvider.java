@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserDataProvider {
     @DataProvider
-    public Iterator<UserLombok> dataProviderWrongPasswordOrEmail(){
+    public Iterator<UserLombok> dataProviderForRegistrationWrongPasswordOrEmail(){
         List<UserLombok> list = new ArrayList<>();
         try(BufferedReader bufferedReader =new BufferedReader(new FileReader
                 ("src/test/resources/wrong_email_password.csv"))){
@@ -20,8 +20,10 @@ public class UserDataProvider {
             while (line !=null){
                 String[] splitLine = line.split(",");
                 list.add(UserLombok.builder()
-                                .username(splitLine[0])
-                                .password(splitLine[1])
+                                .firstName(splitLine[0])
+                                .lastName(splitLine[1])
+                                .username(splitLine[2])
+                                .password(splitLine[3])
                                 .build());
                 line = bufferedReader.readLine();
             }

@@ -16,6 +16,7 @@ public class RegistrationTests extends AppManager {
 
     @BeforeMethod
     public void goToRegistrationPage(){
+        logger.info("start registration test");
         new HomePage(getDriver()).clickBtnSignUp();
         registrationPage = new RegistrationPage(getDriver());
     }
@@ -25,7 +26,7 @@ public class RegistrationTests extends AppManager {
         UserLombok user = positiveUser();
         System.out.println(user);
         registrationPage.typeRegistrationForm(user);
-        registrationPage.clickInputCheckbox();
+        registrationPage.clickCheckboxByMyScreenResolution();
         registrationPage.clickBtnYalla();
         Assert.assertTrue(registrationPage.isPopUpLoginDisplayed());
     }

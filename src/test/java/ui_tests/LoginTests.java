@@ -30,8 +30,8 @@ public class LoginTests extends AppManager {
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
         //Assert.assertEquals(loginPage.getLoggedInMessage(), "Logged in success");
-        //Assert.assertTrue(loginPage.validateTextInMessageLoginSuccess("Logged in success"));
-        Assert.assertTrue(loginPage.isPopUpLoginDisplayed());
+        Assert.assertTrue(loginPage.validateTextInMessageLoginSuccess("Logged in success"));
+        //Assert.assertTrue(loginPage.isPopUpLoginDisplayed());
         loginPage.clickOk();
     }
 
@@ -43,8 +43,8 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
-        //Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
-        Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
+        Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
+        //Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
         loginPage.clickOk();
     }
 
@@ -56,8 +56,8 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
-        //Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
-        Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
+        Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
+        //Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
         loginPage.clickOk();
     }
 
@@ -130,3 +130,4 @@ public class LoginTests extends AppManager {
     }
 
 }
+

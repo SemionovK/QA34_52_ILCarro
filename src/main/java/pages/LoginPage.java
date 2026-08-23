@@ -30,21 +30,21 @@ public class LoginPage extends BasePage{
         return isElementDisplayed(loggedInMessage);
     }
 
-    public boolean isPopUpLoginFailedDisplayed(){
-        return isElementDisplayed(errorMessage);
-    }
-
-//    public boolean validateTextInMessageLoginFailed(String text){
-//        return isTextInElementPresent(errorMessage, text) ;
+//    public boolean isPopUpLoginFailedDisplayed(){
+//        return isElementDisplayed(errorMessage);
 //    }
+
+    public boolean validateTextInMessageLoginFailed(String text){
+        return isTextInElementPresent(errorMessage, text) ;
+    }
 
 //    public String getErrorMessage() {
 //        return errorMessage.getText();
 //    }
 
-//    public boolean validateTextInMessageLoginSuccess(String text){
-//        return isTextInElementPresent(loggedInMessage, text);
-//    }
+    public boolean validateTextInMessageLoginSuccess(String text){
+        return isTextInElementPresent(loggedInMessage, text);
+    }
 
 //    public String getLoggedInMessage(){
 //        return loggedInMessage.getText();
