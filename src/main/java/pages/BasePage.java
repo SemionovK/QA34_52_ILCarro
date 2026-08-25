@@ -54,6 +54,12 @@ public abstract class BasePage {
         return element.isDisplayed();
     }
 
+
+    public void clickWait(WebElement element){
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
     public void pause(int time) {
         try {
             Thread.sleep(time);

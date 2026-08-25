@@ -20,6 +20,8 @@ public class HomePage extends BasePage{
     WebElement btnLogin;
     @FindBy(css = "a[href='/registration?url=%2Fsearch']")
     WebElement btnSignUp;
+    @FindBy(css = "a[href='/let-car-work']")
+    WebElement btnLetTheCarWork;
 
 
 
@@ -28,4 +30,6 @@ public class HomePage extends BasePage{
     }
 
     public void clickBtnSignUp(){btnSignUp.click();}
+
+    public void clickBtnLetTheCarWork() {btnLetTheCarWork.click();}
 }
