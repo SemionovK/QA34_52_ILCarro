@@ -44,9 +44,10 @@ public class LetTheCarWorkTest extends AppManager {
                 .carRegistrationNumber("TD25342")
                 .price(120.50)
                 .about("in a good condition")
-                .uploadPhoto("C:\\PicsForQa\\qa.jpg")
+                .inputUploadPhoto("C:\\PicsForQa\\qa.jpg")
                 .build();
         letTheCarWorkPage.typeCarForm(car);
+        letTheCarWorkPage.waitForPhotoUpload();
         letTheCarWorkPage.clickBtnSubmitWithJS();
         Assert.assertTrue(letTheCarWorkPage.ValidateTextInMsgAddingCarFailed("Car adding failed"));
     }

@@ -21,5 +21,5 @@ public class Car {
     private String carRegistrationNumber;
     private double price;
     private String about;
-    private String uploadPhoto;
+    private String inputUploadPhoto;
 }

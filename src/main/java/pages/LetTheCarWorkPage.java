@@ -6,6 +6,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LetTheCarWorkPage extends BasePage{
     public LetTheCarWorkPage(WebDriver driver){
@@ -21,8 +25,6 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputModel;
     @FindBy(id = "year")
     WebElement inputYear;
-    @FindBy(id = "fuel")
-    WebElement inputFuel;
     @FindBy(id = "seats")
     WebElement inputSeats;
     @FindBy(id = "class")
@@ -37,6 +39,8 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputUploadPhoto;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnSubmit;
+    @FindBy(css = "div.mat-chip-list-wrapper mat-chip")
+    WebElement uploadedPhoto;
     @FindBy(xpath = "//h1[text()='Car adding failed']")
     WebElement msgCarAddingFailed;
 
@@ -62,11 +66,16 @@ public class LetTheCarWorkPage extends BasePage{
         inputCarRegistrationNumber.sendKeys(car.getCarRegistrationNumber());
         inputPrice.sendKeys(String.valueOf(car.getPrice()));
         inputAbout.sendKeys(car.getAbout());
-        inputUploadPhoto.sendKeys(car.getUploadPhoto());
+        inputUploadPhoto.sendKeys(car.getInputUploadPhoto());
 
     }
 
     private void choseFuel(Fuel fuel){
         driver.findElement(By.cssSelector(fuel.getLocator())).click();
+    }
+
+    public void waitForPhotoUpload() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOf(uploadedPhoto));
     }
 }
