@@ -21,8 +21,6 @@ public class LoginPage extends BasePage{
     WebElement btnYalla;
     @FindBy(xpath = "//*[text()='Logged in success']")
     WebElement loggedInMessage;
-    @FindBy(xpath = "//button[text()='Ok']")
-    WebElement btnOk;
     @FindBy(css = "h2.message")
     WebElement errorMessage;
 
@@ -50,9 +48,6 @@ public class LoginPage extends BasePage{
 //        return loggedInMessage.getText();
 //    }
 
-    public void clickOk(){
-        btnOk.click();
-    }
 
     public void typeLoginForm(UserLombok user){
         if (user.getUsername() != null){

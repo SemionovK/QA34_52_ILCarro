@@ -2,7 +2,8 @@ package ui_tests;
 
 import dto.Car;
 import dto.UserLombok;
-import enums.Fuel;
+import pages.PopUpPage;
+import utils.enums.Fuel;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -10,42 +11,35 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LetTheCarWorkPage;
 import pages.LoginPage;
+import utils.enums.HeaderMenu;
 
+import static utils.CarFactory.*;
 import static utils.PropertiesReader.getProperty;
 
 public class LetTheCarWorkTest extends AppManager {
     LetTheCarWorkPage letTheCarWorkPage;
+    LoginPage loginPage;
 
     @BeforeMethod
     public void toLogIn(){
-        HomePage homePage =  new HomePage(getDriver());
-        homePage.clickBtnLogin();
-        LoginPage loginPage = new LoginPage(getDriver());
+//        HomePage homePage =  new HomePage(getDriver());
+//        homePage.clickBtnLogin();
+//        LoginPage loginPage = new LoginPage(getDriver());
+
+        loginPage = new HomePage(getDriver()).clickHeaderButton(HeaderMenu.LOG_IN);
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
-        homePage.clickBtnLetTheCarWork();
-        letTheCarWorkPage = new LetTheCarWorkPage(getDriver());
+        new PopUpPage(getDriver()).clickBtnOk();
+        letTheCarWorkPage = new HomePage((getDriver())).clickHeaderButton(HeaderMenu.LET_THE_CAR_WORK);
     }
 
     @Test
     public void letTheCarWorkPositiveTest(){
-        Car car = Car.builder()
-                .location("Haifa")
-                .manufacture("KIA")
-                .model("TF100")
-                .year(2024)
-                .fuel(Fuel.HYBRID)
-                .seats(4)
-                .carClass("Business")
-                .carRegistrationNumber("TD25342")
-                .price(120.50)
-                .about("in a good condition")
-                .inputUploadPhoto("C:\\PicsForQa\\qa.jpg")
-                .build();
+        Car car = positiveCar();
         letTheCarWorkPage.typeCarForm(car);
         letTheCarWorkPage.waitForPhotoUpload();
         letTheCarWorkPage.clickBtnSubmitWithJS();

@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.PopUpPage;
 
 import static utils.PropertiesReader.*;
 
@@ -32,7 +33,7 @@ public class LoginTests extends AppManager {
         //Assert.assertEquals(loginPage.getLoggedInMessage(), "Logged in success");
         Assert.assertTrue(loginPage.validateTextInMessageLoginSuccess("Logged in success"));
         //Assert.assertTrue(loginPage.isPopUpLoginDisplayed());
-        loginPage.clickOk();
+        new PopUpPage(getDriver()).clickBtnOk();
     }
 
     @Test
@@ -45,7 +46,6 @@ public class LoginTests extends AppManager {
         loginPage.clickBtnYalla();
         Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
         //Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
-        loginPage.clickOk();
     }
 
     @Test
@@ -58,7 +58,6 @@ public class LoginTests extends AppManager {
         loginPage.clickBtnYalla();
         Assert.assertTrue(loginPage.validateTextInMessageLoginFailed("Login or Password incorrect"));
         //Assert.assertTrue(loginPage.isPopUpLoginFailedDisplayed());
-        loginPage.clickOk();
     }
 
     @Test

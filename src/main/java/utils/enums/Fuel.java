@@ -1,4 +1,4 @@
-package enums;
+package utils.enums;
 
 public enum Fuel {
     DIESEL("option[value='Diesel']"),

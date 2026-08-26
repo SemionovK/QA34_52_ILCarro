@@ -1,7 +1,7 @@
 package pages;
 
 import dto.Car;
-import enums.Fuel;
+import utils.enums.Fuel;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -59,7 +59,7 @@ public class LetTheCarWorkPage extends BasePage{
         inputLocation.sendKeys(car.getLocation());
         inputManufacture.sendKeys(car.getManufacture());
         inputModel.sendKeys(car.getModel());
-        inputYear.sendKeys(String.valueOf(car.getYear()));
+        inputYear.sendKeys(car.getYear());
         choseFuel(car.getFuel());
         inputSeats.sendKeys(String.valueOf(car.getSeats()));
         inputClass.sendKeys(car.getCarClass());
