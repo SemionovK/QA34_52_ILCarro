@@ -4,13 +4,18 @@ import dto.UserLombok;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.PopUpPage;
+import utils.RetryAnalyzer;
+import utils.TestNGListener;
 
 import static utils.PropertiesReader.*;
+
+@Listeners(TestNGListener.class)
 
 public class LoginTests extends AppManager {
     LoginPage loginPage;
@@ -36,7 +41,7 @@ public class LoginTests extends AppManager {
         new PopUpPage(getDriver()).clickBtnOk();
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginWithWrongPasswordTest(){
         UserLombok user = UserLombok.builder()
                 .username(getProperty("base.properties", "email"))

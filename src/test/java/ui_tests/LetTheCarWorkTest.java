@@ -41,7 +41,7 @@ public class LetTheCarWorkTest extends AppManager {
     public void letTheCarWorkPositiveTest(){
         Car car = positiveCar();
         letTheCarWorkPage.typeCarForm(car);
-        letTheCarWorkPage.waitForPhotoUpload();
+        letTheCarWorkPage.downloadImage("cat.png");
         letTheCarWorkPage.clickBtnSubmitWithJS();
         Assert.assertTrue(letTheCarWorkPage.ValidateTextInMsgAddingCarFailed("Car adding failed"));
     }

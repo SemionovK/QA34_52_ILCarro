@@ -18,7 +18,7 @@ public class UserDataProvider {
                 ("src/test/resources/wrong_email_password.csv"))){
             String line = bufferedReader.readLine();
             while (line !=null){
-                String[] splitLine = line.split(",");
+                String[] splitLine = line.split(",", -1);
                 list.add(UserLombok.builder()
                                 .firstName(splitLine[0])
                                 .lastName(splitLine[1])
