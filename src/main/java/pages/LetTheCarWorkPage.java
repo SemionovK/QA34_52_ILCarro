@@ -26,6 +26,8 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputModel;
     @FindBy(id = "year")
     WebElement inputYear;
+    @FindBy(id = "fuel")
+    WebElement inputFuel;
     @FindBy(id = "seats")
     WebElement inputSeats;
     @FindBy(id = "class")
@@ -44,9 +46,15 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputImage;
     @FindBy(xpath = "//h1[text()='Car adding failed']")
     WebElement msgCarAddingFailed;
+    @FindBy(css = "h2.message")
+    WebElement msgFieldMustNotBeBlank;
 
     public boolean ValidateTextInMsgAddingCarFailed(String text){
         return isTextInElementPresent(msgCarAddingFailed, text);
+    }
+
+    public boolean validateTextInMsgFieldMustNotBeBlank(String text){
+        return isTextInElementPresent(msgFieldMustNotBeBlank, text);
     }
 
     public void clickBtnSubmitWithJS(){
@@ -57,21 +65,22 @@ public class LetTheCarWorkPage extends BasePage{
     }
 
     public void typeCarForm(Car car) {
-        inputLocation.sendKeys(car.getLocation());
-        inputManufacture.sendKeys(car.getManufacture());
-        inputModel.sendKeys(car.getModel());
-        inputYear.sendKeys(car.getYear());
-        choseFuel(car.getFuel());
-        inputSeats.sendKeys(String.valueOf(car.getSeats()));
-        //inputSeats.sendKeys(car.getSeats().toString());
-        //inputSeats.sendKeys(car.getSeats() + "");
-        //inputSeats.sendKeys(Integer.toString(car.getSeats()));
-        inputClass.sendKeys(car.getCarClass());
-        inputCarRegistrationNumber.sendKeys(car.getCarRegistrationNumber());
-        inputPrice.sendKeys(String.valueOf(car.getPrice()));
-        inputAbout.sendKeys(car.getAbout());
+        if (car.getLocation() != null) {inputLocation.sendKeys(car.getLocation());}
+        if (car.getManufacture() != null) {inputManufacture.sendKeys(car.getManufacture());}
+        if (car.getModel() != null) {inputModel.sendKeys(car.getModel());}
+        if (car.getYear() != null) {inputYear.sendKeys(car.getYear());}
+        if (car.getFuel() != null) {choseFuel(car.getFuel());}
+        if (car.getSeats() != null) {
+            inputSeats.sendKeys(String.valueOf(car.getSeats()));
+            //inputSeats.sendKeys(car.getSeats().toString());
+            //inputSeats.sendKeys(car.getSeats() + "");
+            //inputSeats.sendKeys(Integer.toString(car.getSeats()));
+        }
+        if (car.getCarClass() != null) {inputClass.sendKeys(car.getCarClass());}
+        if (car.getCarRegistrationNumber() != null) {inputCarRegistrationNumber.sendKeys(car.getCarRegistrationNumber());}
+        if (car.getPrice() != 0) {inputPrice.sendKeys(String.valueOf(car.getPrice()));}
+        if (car.getAbout() != null) {inputAbout.sendKeys(car.getAbout());}
        // inputUploadPhoto.sendKeys(car.getInputUploadPhoto());  my option
-
     }
 
     private void choseFuel(Fuel fuel){
@@ -85,5 +94,26 @@ public class LetTheCarWorkPage extends BasePage{
     public void waitForPhotoUpload() {
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(inputImage));
+    }
+
+    public void clickAllFieldsWithoutTyping() {
+        inputLocation.click();
+        inputManufacture.click();
+        inputModel.click();
+        inputYear.click();
+        inputFuel.click();
+        inputSeats.click();
+        inputClass.click();
+        inputCarRegistrationNumber.click();
+        inputPrice.click();
+        inputAbout.click();
+    }
+
+    public boolean  isBtnSubmitIsEnabled(){
+        return btnSubmit.isEnabled();
+    }
+
+    public void clickBtnSubmit() {
+        btnSubmit.click();
     }
 }

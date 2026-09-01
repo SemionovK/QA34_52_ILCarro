@@ -40,7 +40,7 @@ public abstract class BasePage {
 //    1st option
     public boolean isTextInElementPresent(WebElement element, String text) {
         try {
-            return new WebDriverWait(driver, Duration.ofSeconds(5))
+            return new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions
                             .textToBePresentInElement(element, text));
         } catch (RuntimeException e) {
