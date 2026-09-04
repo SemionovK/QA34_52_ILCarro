@@ -118,5 +118,14 @@ public class LetTheCarWorkTest extends AppManager {
         softAssert.assertAll();
     }
 
+    @Test
+    public void addNewCarNegativeWrongYearNotDigitTest() {
+        Car car = positiveCar();
+        car.setYear("a");
+        System.out.println(car);
+        letTheCarWorkPage.typeCarForm(car);
+        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Year required"));
+    }
+
 
 }

@@ -20,10 +20,10 @@ public class UserDataProvider {
             while (line !=null){
                 String[] splitLine = line.split(",", -1);
                 list.add(UserLombok.builder()
-                                .firstName(splitLine[0])
-                                .lastName(splitLine[1])
-                                .username(splitLine[2])
-                                .password(splitLine[3])
+                                .firstName(splitLine[2])
+                                .lastName(splitLine[3])
+                                .username(splitLine[0])
+                                .password(splitLine[1])
                                 .build());
                 line = bufferedReader.readLine();
             }
