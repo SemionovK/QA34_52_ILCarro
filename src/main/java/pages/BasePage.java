@@ -1,9 +1,6 @@
 package pages;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -42,7 +39,7 @@ public abstract class BasePage {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions
-                            .textToBePresentInElement(element, text));
+                            .textToBePresentInElement(element, text.trim()));
         } catch (RuntimeException e) {
             e.printStackTrace();
             System.out.println("created exeption");
@@ -103,4 +100,28 @@ public abstract class BasePage {
         }
     }
 
+    public boolean isUrlContainsText(String text) {
+        try {
+            return new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.urlContains(text));
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public void closeGooglePopupIfPresent(WebElement element) {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(2))
+                    .until(ExpectedConditions.elementToBeClickable(element))
+                    .click();
+
+        } catch (TimeoutException e) {
+            logger.info("Google Maps popup did not appear");
+        }
+    }
+
 }
+
+
