@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,6 +32,8 @@ public class HomePage extends BasePage{
     WebElement inputDates;
     @FindBy(xpath = "//button[text()='Y’alla!']")
     WebElement btnYalla;
+    @FindBy(xpath = "//button[@aria-label='Choose month and year']")
+    WebElement btnYearOnCalendar;
     @FindBy(xpath = "//div[contains(text(), \"You can't book car for less than a day\")]")
     WebElement errLessThanADay;
     @FindBy(xpath = "//div[contains(text(), \"Dates are required\")]")
@@ -67,6 +70,46 @@ public class HomePage extends BasePage{
         System.out.println(dates);
         inputDates.sendKeys(dates);
     }
+
+    public void typeSearchFormWithCalendar(String city,
+                                           LocalDate startDate, LocalDate endDate) {
+        inputCity.sendKeys(city);
+        inputDates.click();
+        typeCalendar(startDate);
+        typeCalendar(endDate);
+    }
+
+    private void typeCalendar(LocalDate date) {
+        btnYearOnCalendar.click();
+        // //td[@aria-label='2026']  "//td[@aria-label='"+year+"']"
+        String year = Integer.toString(date.getYear());
+        WebElement btnYear = driver.findElement
+                (By.xpath("//td[@aria-label='" + year + "']"));
+        btnYear.click();
+        // //td[@aria-label="November 2026"] "//td[@aria-label='"+month+" "+year+"']"
+        String month = createMonth(date.getMonth().toString());
+        System.out.println(month);
+        WebElement btnMonth = driver.findElement(By
+                .xpath("//td[@aria-label='" + month + " " + year + "']"));
+        btnMonth.click();
+        // //td[@aria-label="September 11, 2026"]
+        System.out.println(date.getDayOfMonth());
+        String day = String.valueOf(date.getDayOfMonth());
+        WebElement btnDay = driver.findElement(By
+                .xpath("//td[@aria-label='" + month + " " + day + ", " + year + "']"));
+        btnDay.click();
+
+    }
+
+    //SEPTEMBER --> September
+    private String createMonth(String month) {
+        return new StringBuilder().append(month.substring(0, 1)
+                .toUpperCase()).append(month.substring(1)
+                .toLowerCase()).toString();
+    }
+
+
+
 
     public void typeSearchFormNotDates(String city, String text){
         if (city != null)
