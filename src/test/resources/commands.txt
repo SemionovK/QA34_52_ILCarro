@@ -1,0 +1,5 @@
+file for me
+./gradlew clean  // to clean the file with reports
+./gradlew clean test - //- + to run test (all tests)
+./gradlew clean qa -//- + to run {the name of the task}
+./gradlew clean scope
